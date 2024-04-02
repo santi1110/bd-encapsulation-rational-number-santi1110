@@ -101,7 +101,7 @@ public class RationalNumberTest {
         RationalNumber half = new RationalNumber(1, 2);
 
         //WHEN & THEN
-        Assertions.assertThrows(IllegalArgumentException.class, () -> half.denominator = 0, "You should not "
+        Assertions.assertThrows(IllegalArgumentException.class, () -> half.update(half.getNumerator(),half.denominator=0), "You should not "
             + "be able to edit an existing RationalNumber and make it invalid with a 0 value denominator.");
     }
 
@@ -122,14 +122,25 @@ public class RationalNumberTest {
     public void equals_withUpdatedReducedNonReducedRationals_returnsEqual() {
         //GIVEN
         RationalNumber half = new RationalNumber(1, 2);
-        RationalNumber half2 = new RationalNumber(1, 2);
-        half2.numerator = 2;
-        half2.denominator = 4;
+        RationalNumber half2 = new RationalNumber(2, 4);
+        half2.update(1,half.getDenominator());
 
         //WHEN
         boolean equal = half.equals(half2);
 
         //THEN
         assertTrue(equal, "1/2 and 2/4 should be equal.");
+    }
+    @Test
+    public void constructor_existingRationalNumber_createsCopy() {
+        // GIVEN
+        RationalNumber original = new RationalNumber(3, 4);
+
+        // WHEN
+        RationalNumber copy = new RationalNumber(original);
+
+        // THEN
+        assertEquals(original.getNumerator(), copy.getNumerator(), "Numerators should be equal.");
+        assertEquals(original.getDenominator(), copy.getDenominator(), "Denominators should be equal.");
     }
 }

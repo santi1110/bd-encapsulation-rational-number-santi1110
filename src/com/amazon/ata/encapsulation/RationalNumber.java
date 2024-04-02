@@ -32,6 +32,10 @@ public class RationalNumber {
 
         reduce();
     }
+    public RationalNumber(RationalNumber original) {
+        this.numerator = original.numerator;
+        this.denominator = original.denominator;
+    }
 
     /**
      * Calculates the rational number as a decimal value.
@@ -103,4 +107,26 @@ public class RationalNumber {
             numerator = -numerator;
         }
     }
-}
+    public int getNumerator() {
+        return numerator;
+    }
+
+    public int getDenominator() {
+        return denominator;
+    }
+    public void update(int newnumerator, int newdenominator) {
+        if (newdenominator == 0) {
+            throw new IllegalArgumentException("Denominator cannot be zero.");
+        }
+        numerator = newnumerator;
+        denominator = newdenominator;
+        reduce();
+    }
+    public static void main(String[] args) {
+        RationalNumber original = new RationalNumber(3, 4);
+        RationalNumber copy = new RationalNumber(original);
+        System.out.println("Original: " + original + ", Copy: " + copy);
+        }
+    }
+
+
